@@ -1,0 +1,184 @@
+body {
+  background-color: lightblue;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: darkblue;
+}
+p {
+  font-size: 18px;
+  color: #333;
+}
+body {
+  text-align: center;
+}
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+h1, p {
+  margin-bottom: 20px;
+}
+/* Give the whole page a max width so it doesn't stretch too wide */
+body {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: lightblue;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* Add a soft card around your content */
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Make the heading pop */
+h1 {
+  color: darkblue;
+  margin-bottom: 20px;
+}
+
+/* Clean up paragraph spacing */
+p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+}
+/* Page layout */
+body {
+  background-color: lightblue;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Header bar */
+header {
+  background: darkblue;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+/* Footer */
+footer {
+  margin-top: 30px;
+  padding: 10px;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Card container */
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Headings */
+h1 {
+  color: darkblue;
+  margin-bottom: 20px;
+}
+
+/* Paragraphs */
+p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Image styling */
+img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Button styling */
+.primary-btn {
+  background: darkblue;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.primary-btn:hover {
+  background: #001a66;
+}
+a.primary-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: darkblue;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+a.primary-btn:hover {
+  background: #001a66;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.gallery img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+.gallery img:hover {
+  transform: scale(1.1);
+  border-radius: 20px;
+}
+/* Lightbox popup */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
+}
+
+.lightbox:target {
+  display: flex;
+}
+
+
