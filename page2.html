@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Second Page</title>
+    <title>Birds, Bugs & More</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -15,21 +15,22 @@
     <!-- FULLSCREEN WHITE FLASH -->
     <div id="flash"></div>
 
-    <!-- JUMPSCARE -->
+    <!-- HAPPY WEASEL POPUP -->
     <div id="jumpscare">
-        <img src="scareme.webp" alt="boo">
-        <audio id="scream" src="stunning-scream.mp3"preload="auto"></audio>
+        <img src="laughing-weasel.png" alt="happy laughing weasel">
     </div>
+	<audio id="scream" src="laughingWeasel.mp3" preload="auto"></audio>
+    
 
     <header>
-        <h2>Second Page</h2>
+        <h2>Birds, Bug & More</h2>
     </header>
 
     <div class="container" style="text-align:center;">
-        <h1>I'm unsure what to put here but there's...</h1>
-        <p>More to come soon...</p>
+        <h1>Animals</h1>
+        <p>A Collection of animals I've snapped pics of.</p>
 
-        <!-- BUTTON WITH ID FOR JS -->
+        <!-- EXIT BUTTON -->
         <a href="index.html" id="homeButton" class="primary-btn">Go Back Home</a>
     </div>
 
@@ -38,7 +39,39 @@
     </footer>
 
     <!-- JAVASCRIPT -->
-    <script src="script.js?v=5"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const jumpscare = document.getElementById("jumpscare");
+            const laugh = document.getElementById("scream");
+
+            // ENTRY POPUP
+            setTimeout(() => {
+                jumpscare.classList.add("active");
+                laugh.volume = 0.4;
+                laugh.play();
+
+                // Hide after 2 seconds
+                setTimeout(() => {
+                    jumpscare.classList.remove("active");
+                }, 2000);
+            }, 300);
+
+            // EXIT POPUP
+            const homeButton = document.getElementById("homeButton");
+            homeButton.addEventListener("click", (e) => {
+                e.preventDefault(); // pause navigation
+
+                jumpscare.classList.add("active");
+                laugh.currentTime = 0;
+                laugh.play();
+
+                // Navigate after animation
+                setTimeout(() => {
+                    window.location.href = homeButton.href;
+                }, 1500);
+            });
+        });
+    </script>
 
 </body>
 </html>

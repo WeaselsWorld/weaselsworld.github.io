@@ -37,6 +37,9 @@
 
 <body>
 
+    <img id="hawk" src="swoopinghawk.png" alt="NZ Hawk">
+    <audio id="hawkSound" src="hawk-screech.mp3" preload="auto"></audio>
+
 <header>
     <h2>Photo Gallery</h2>
 </header>
@@ -88,6 +91,46 @@
     });
 
     lightbox.init();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const hawk = document.getElementById("hawk");
+    const hawkSound = document.getElementById("hawkSound");
+
+    /* -------------------------
+       ENTRY ANIMATION + AUDIO
+    --------------------------*/
+    hawk.classList.add("hawk-entry");
+    hawkSound.currentTime = 0;
+    hawkSound.play();
+
+    setTimeout(() => {
+        hawk.classList.remove("hawk-entry");
+    }, 5200);
+
+    /* -------------------------
+       EXIT ANIMATION + AUDIO
+    --------------------------*/
+    const buttons = document.querySelectorAll(".primary-btn");
+
+    buttons.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            hawk.classList.add("hawk-exit");
+
+            hawkSound.currentTime = 0;
+            hawkSound.play();
+
+            setTimeout(() => {
+                window.location.href = btn.href;
+            }, 3350);
+        });
+    });
+
+});
 </script>
 
 <footer>

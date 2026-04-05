@@ -1,37 +1,69 @@
-// PRELOAD AND PRIME SCREAM
-const scream = document.getElementById("scream");
-scream.volume = 1.0;
+// ---------------------------------------------------
+// PRELOAD + PRIME AUDIO
+// ---------------------------------------------------
+const laugh = document.getElementById("scream");
+laugh.volume = 1.0;
 
-// Force the browser to decode the audio early
-scream.play().then(() => {
-    scream.pause();
-    scream.currentTime = 0;
+// Try to decode early (some browsers block autoplay)
+laugh.play().then(() => {
+    laugh.pause();
+    laugh.currentTime = 0;
 }).catch(() => {
-    // Some browsers block autoplay — this is fine.
+    // Autoplay blocked — totally fine, user interaction will allow it later.
 });
 
-document.getElementById("homeButton").addEventListener("click", function (event) {
-    event.preventDefault(); // stop instant navigation
+// ---------------------------------------------------
+// ENTRY POPUP (shows on page load)
+// ---------------------------------------------------
+window.addEventListener("DOMContentLoaded", () => {
+    const popup = document.getElementById("jumpscare");
+
+    // Delay slightly for smoother appearance
+    setTimeout(() => {
+        popup.classList.add("active");
+        laugh.currentTime = 0;
+        laugh.play();
+
+        // Fade out after 2 seconds
+        setTimeout(() => {
+            popup.classList.add("fade-out");
+
+            setTimeout(() => {
+                popup.classList.remove("active", "fade-out");
+            }, 350); // matches popOut animation
+        }, 2000);
+
+    }, 300);
+});
+
+// ---------------------------------------------------
+// EXIT POPUP (when clicking "Go Back Home")
+// ---------------------------------------------------
+document.getElementById("homeButton").addEventListener("click", (event) => {
+    event.preventDefault();
 
     const flash = document.getElementById("flash");
-    const jumpscare = document.getElementById("jumpscare");
-    const scream = document.getElementById("scream");
+    const popup = document.getElementById("jumpscare");
 
-    // FLASH + SHAKE
+    // Flash + shake
     flash.classList.add("flash-active");
     document.body.classList.add("shake");
 
-    // PLAY SCREAM *IMMEDIATELY*
-    scream.currentTime = 0;
-    scream.play();
+    // Play laugh instantly
+    laugh.currentTime = 0;
+    laugh.play();
 
-    // SHOW IMAGE JUST AFTER (feels instant)
+    // Show popup immediately
+    popup.classList.add("active");
+
+    // Fade out popup before redirect
     setTimeout(() => {
-        jumpscare.style.display = "flex";
-    }, 30); // 30ms delay makes it feel perfectly synced
+        popup.classList.add("fade-out");
+    }, 1200);
 
-    // REDIRECT AFTER 3 SECONDS
+    // Redirect after animation
     setTimeout(() => {
         window.location.href = "index.html";
-    }, 3000);
+    }, 1600);
 });
+hawk.classList.add("hawk-entry");
