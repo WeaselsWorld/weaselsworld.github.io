@@ -9,35 +9,21 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Your main stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Gallery grid styling (kept) -->
-    <style>
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .gallery img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            transition: 0.2s;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-        }
-    </style>
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="styles2.css">
 </head>
 
 <body>
 
+    <!-- FLYING HAWK -->
     <img id="hawk" src="swoopinghawk.png" alt="NZ Hawk">
+
+    <!-- PERCHED HAWK WRAPPER (for sliding) -->
+    <div id="hawkPerchedWrapper" class="hawk-hidden">
+        <img id="hawkPerched" src="hawk-sitting.png" alt="Perched Hawk">
+    </div>
+
+    <!-- AUDIO -->
     <audio id="hawkSound" src="hawk-screech.mp3" preload="auto"></audio>
 
 <header>
@@ -51,21 +37,15 @@
     <!-- PhotoSwipe Gallery -->
     <div class="gallery" id="my-gallery">
 
-        <a href="image1.jpg"
-           data-pswp-width="1600"
-           data-pswp-height="900">
+        <a href="image1.jpg" data-pswp-width="1600" data-pswp-height="900">
             <img src="image1.jpg" alt="another day from victory bridge">
         </a>
 
-        <a href="image2.jpg"
-           data-pswp-width="1600"
-           data-pswp-height="900">
+        <a href="image2.jpg" data-pswp-width="1600" data-pswp-height="900">
             <img src="image2.jpg" alt="out my back door">
         </a>
 
-        <a href="image3.jpg"
-           data-pswp-width="1600"
-           data-pswp-height="900">
+        <a href="image3.jpg" data-pswp-width="1600" data-pswp-height="900">
             <img src="image3.jpg" alt="down Blair road">
         </a>
 
@@ -76,7 +56,7 @@
     <div class="button-group">
         <a href="index.html" class="primary-btn">Back Home</a>
         <br><br>
-        <a href="page2.html" class="primary-btn">Go to Page 2</a>
+        <a href="page2.html" class="primary-btn">Birds, Bugs & More</a>
     </div>
 </div>
 
@@ -95,41 +75,63 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
     const hawk = document.getElementById("hawk");
+    const hawkPerchedWrapper = document.getElementById("hawkPerchedWrapper");
     const hawkSound = document.getElementById("hawkSound");
 
-    /* -------------------------
-       ENTRY ANIMATION + AUDIO
-    --------------------------*/
+    /* -----------------------------------------
+       ENTRY SEQUENCE — SWOOP → GLIDE → PERCH
+    ------------------------------------------*/
+
+    hawkPerchedWrapper.classList.add("hawk-hidden");
+
     hawk.classList.add("hawk-entry");
     hawkSound.currentTime = 0;
     hawkSound.play();
 
-    setTimeout(() => {
-        hawk.classList.remove("hawk-entry");
-    }, 5200);
+    hawk.addEventListener("animationend", function entryDone(e) {
+        if (e.animationName === "hawkEntry") {
+            hawk.classList.remove("hawk-entry");
 
-    /* -------------------------
-       EXIT ANIMATION + AUDIO
-    --------------------------*/
+            hawkPerchedWrapper.classList.remove("hawk-hidden");
+            hawkPerchedWrapper.classList.add("hawk-slide-in");
+
+            hawk.removeEventListener("animationend", entryDone);
+        }
+    });
+
+    /* -----------------------------------------
+       EXIT SEQUENCE — SLIDE OUT → SWOOP AWAY
+    ------------------------------------------*/
+
     const buttons = document.querySelectorAll(".primary-btn");
 
     buttons.forEach(btn => {
         btn.addEventListener("click", (e) => {
             e.preventDefault();
 
-            hawk.classList.add("hawk-exit");
+            hawkPerchedWrapper.classList.remove("hawk-slide-in");
+            hawkPerchedWrapper.classList.add("hawk-slide-out");
 
-            hawkSound.currentTime = 0;
-            hawkSound.play();
+            hawkPerchedWrapper.addEventListener("animationend", function perchGone(ev) {
+                if (ev.animationName === "hawkSlideOut") {
 
-            setTimeout(() => {
-                window.location.href = btn.href;
-            }, 3350);
+                    hawk.classList.add("hawk-exit");
+                    hawkSound.currentTime = 0;
+                    hawkSound.play();
+
+                    hawkPerchedWrapper.removeEventListener("animationend", perchGone);
+                }
+            });
+
+            hawk.addEventListener("animationend", function exitDone(ev) {
+                if (ev.animationName === "hawkExit") {
+                    hawk.removeEventListener("animationend", exitDone);
+                    window.location.href = btn.href;
+                }
+            });
         });
     });
-
 });
 </script>
 
